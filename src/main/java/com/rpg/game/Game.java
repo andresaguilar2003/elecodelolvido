@@ -10,6 +10,7 @@ import com.rpg.world.Zona;
 import com.rpg.guardar.SaveManager;
 import com.rpg.world.Academia;
 import com.rpg.misiones.MisionManager;
+import com.rpg.capitulo2.Capitulo2;
 
 public class Game {
 
@@ -118,6 +119,13 @@ public class Game {
                         System.out.println("\n💫 Has derrotado al Espectro Jefe.");
                         misionManager.completarMision("Eco del Bosque", jugador);
                         continuar = false;
+                        if (jugador.estaVivo()) {
+                                System.out.println("\n🌙 Fin del Capítulo 1 — 'El Eco Despierta' 🌙");
+                            } else {
+                                System.out.println("\n💀 Tu eco se desvanece en la eternidad...");
+                                return;
+                        }
+                        menuFinCapitulo1();
                     }
                 }
                 case 2 -> misionManager.mostrarMisiones();
@@ -133,12 +141,72 @@ public class Game {
                 default -> System.out.println("Opción no válida.");
             }
         }
+    }
 
-        if (jugador.estaVivo()) {
-            System.out.println("\n🌙 Fin del Capítulo 1 — 'El Eco Despierta' 🌙");
-        } else {
-            System.out.println("\n💀 Tu eco se desvanece en la eternidad...");
+    private void menuFinCapitulo1() {
+        System.out.println("\n" + "⭐".repeat(50));
+        System.out.println("           🌙 CAPÍTULO 1 COMPLETADO 🌙");
+        System.out.println("⭐".repeat(50));
+        
+        System.out.println("\n💫 Tu existencia se estabiliza... por ahora.");
+        System.out.println("📈 Has alcanzado el nivel " + jugador.getNivel());
+        System.out.println("🎖️  Reputación: " + jugador.getReputacion());
+        System.out.println("\n¿Qué deseas hacer ahora?");
+        
+        boolean enMenu = true;
+        
+        while (enMenu) {
+            System.out.println("\n══════════════════════════════════════════════");
+            System.out.println("1. 💾 Guardar partida");
+            System.out.println("2. 🚀 Continuar al Capítulo 2");
+            System.out.println("3. 📊 Ver estadísticas completas");
+            System.out.println("4. 🚪 Salir del juego");
+            System.out.print("Elige una opción: ");
+            
+            int opcion = scanner.nextInt();
+            scanner.nextLine();
+            
+            switch (opcion) {
+                case 1 -> {
+                    saveManager.guardar(jugador);
+                    System.out.println("✅ Partida guardada correctamente.");
+                    System.out.println("📁 Progreso del Capítulo 1 guardado.");
+                }
+                case 2 -> {
+                    System.out.println("\n🎭 Iniciando Capítulo 2: 'Los Ecos de la Traición'...");
+                    iniciarCapitulo2(jugador);
+                    enMenu = false;
+                }
+                case 3 -> mostrarEstadisticasCompletas();
+                case 4 -> {
+                    System.out.println("👋 ¡Hasta pronto, " + jugador.getNombre() + "!");
+                    enMenu = false;
+                    System.exit(0);
+                }
+                default -> System.out.println("❌ Opción no válida.");
+            }
         }
+    }
+
+    private void mostrarEstadisticasCompletas() {
+        System.out.println("\n📊 ESTADÍSTICAS DE " + jugador.getNombre().toUpperCase());
+        System.out.println("══════════════════════════════════════════════");
+        System.out.println("🏷️  Clase: " + jugador.getClass().getSimpleName());
+        System.out.println("⭐ Nivel: " + jugador.getNivel());
+        System.out.println("❤️  HP: " + jugador.getVida());
+        System.out.println("🎖️  Reputación: " + jugador.getReputacion());
+        System.out.println("💪 Fuerza: " + jugador.getFuerza());
+        System.out.println("🎯 Destreza: " + jugador.getDestreza());
+        System.out.println("📚 Inteligencia: " + jugador.getInteligencia());
+        System.out.println("✨ Voluntad: " + jugador.getVoluntad());
+        System.out.println("🎒 Items en inventario: " + jugador.getInventario().size());
+    }
+
+
+    private void iniciarCapitulo2(Jugador jugador) {
+        // Delegar al manager del capítulo 2
+        Capitulo2 capitulo2 = new Capitulo2(jugador);
+        capitulo2.iniciar();
     }
 
     private void abrirInventario() {
