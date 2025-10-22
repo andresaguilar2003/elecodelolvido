@@ -20,8 +20,6 @@ public class MisionManager {
                 jugador.ganarExperiencia(m.getRecompensaXP());
                 if (m.esMoralBuena()) jugador.cambiarReputacion(+10);
                 else jugador.cambiarReputacion(-10);
-
-                System.out.println("🎁 Recompensa: +" + m.getRecompensaXP() + " XP");
                 System.out.println("✨ Tu reputación ha cambiado según tus acciones.");
                 return;
             }

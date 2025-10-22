@@ -35,17 +35,13 @@ public class Batalla {
             // dentro del bloque donde se detecta derrota del enemigo:
             if (!enemigo.estaVivo()) {
                 System.out.println("\n✅ ¡Has derrotado a " + enemigo.getNombre() + "!");
-                int xpGana = enemigo.getExperienciaBase() * 20; // si Enemigo tiene nivel
+                int xpGana = enemigo.getExperienciaBase(); // si Enemigo tiene nivel
                 jugador.ganarExperiencia(xpGana);
                 // botin
                 Zona z = new Zona("temporal");
                 Item botin = z.posibleBotin();
                 if (botin != null) jugador.recogerItem(botin);
             }
-        }
-
-        if (jugador.estaVivo()) {
-            System.out.println("\n✅ ¡Has derrotado a " + enemigo.getNombre() + "!");
         }
     }
 
