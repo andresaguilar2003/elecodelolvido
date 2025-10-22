@@ -3,6 +3,7 @@ package com.rpg.player;
 import com.rpg.enemy.Enemigo;
 import com.rpg.items.Item;
 
+import com.rpg.capitulo2.facciones.Faccion;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class Jugador {
     private int experiencia;
     private int experienciaParaSiguiente;
     private int reputacion; // -100 malvado, 0 neutral, +100 virtuoso
-
+    private Faccion faccion = Faccion.ACADEMIA;
     // Inventario simple
     private List<Item> inventario = new ArrayList<>();
     private Item objetoEquipado = null;
@@ -50,13 +51,15 @@ public class Jugador {
     public List<Item> getInventario() { return inventario; }
     public Item getObjetoEquipado() { return objetoEquipado; }
     public int getReputacion() { return reputacion; }
+    public Faccion getFaccion() { return faccion; }
+    private List<String> habilidades = new ArrayList<>();
 
     // setters protegidos para subclases
     protected void setFuerza(int fuerza) { this.fuerza = fuerza; }
     protected void setDestreza(int destreza) { this.destreza = destreza; }
     protected void setInteligencia(int inteligencia) { this.inteligencia = inteligencia; }
     protected void setVoluntad(int voluntad) { this.voluntad = voluntad; }
-
+    public void setFaccion(Faccion faccion) { this.faccion = faccion; }
     public boolean estaVivo() { return vida > 0; }
 
     public void recibirDaño(int dmg) {
@@ -134,19 +137,28 @@ public class Jugador {
         System.out.println("Has equipado " + item.getNombre());
     }
 
-    public void cambiarReputacion(int valor) {
-        reputacion += valor;
-        if (reputacion > 100) reputacion = 100;
-        if (reputacion < -100) reputacion = -100;
-        System.out.println("Tu aura moral ahora es: " + obtenerEtiquetaReputacion());
+    public void cambiarReputacion(int cambio) {
+        reputacion += cambio;
+        System.out.println("🔹 Tu reputación ha cambiado: " + (cambio > 0 ? "+" : "") + cambio);
     }
 
-    private String obtenerEtiquetaReputacion() {
-        if (reputacion >= 50) return "Luminoso";
-        if (reputacion <= -50) return "Oscuro";
-        return "Neutral";
+    public void aprenderHabilidad(String nombre) {
+        if (!habilidades.contains(nombre)) {
+            habilidades.add(nombre);
+            System.out.println("💫 Habilidad aprendida: " + nombre);
+        }
     }
 
+    public void listarHabilidades() {
+        System.out.println("\n🧠 HABILIDADES ACTIVAS:");
+        if (habilidades.isEmpty()) {
+            System.out.println("   (No has aprendido ninguna habilidad especial aún)");
+        } else {
+            for (String h : habilidades) {
+                System.out.println("   • " + h);
+            }
+        }
+    }
     // Mostrar stats
     public void mostrarStats() {
         System.out.println("---- " + nombre + " ----");

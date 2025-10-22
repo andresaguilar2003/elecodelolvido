@@ -1,4 +1,4 @@
-package com.rpg.capitulo2.enemigos;
+package com.rpg.enemy.tipo;
 
 import com.rpg.enemy.Enemigo;
 
