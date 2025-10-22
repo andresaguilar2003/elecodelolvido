@@ -1,39 +1,51 @@
 package com.rpg.game;
 
-import com.rpg.player.Jugador;
-import com.rpg.enemy.Enemigo;
 import java.util.Scanner;
+import com.rpg.player.*;
+import com.rpg.enemy.Enemigo;
 
 public class Batalla {
     private Scanner scanner = new Scanner(System.in);
 
     public void iniciarCombate(Jugador jugador, Enemigo enemigo) {
-        System.out.println("¡Comienza el combate contra " + enemigo.getNombre() + "!\n");
+        System.out.println("⚔️ Comienza la batalla entre " + jugador.getNombre() + " y " + enemigo.getNombre() + "! ⚔️\n");
 
-        while(jugador.estaVivo() && enemigo.estaVivo()) {
-            System.out.println("Tu salud: " + jugador.getSalud() + " | " + enemigo.getNombre() + " salud: " + enemigo.getSalud());
-            System.out.println("Elige acción: [1] Atacar [2] Mostrar stats");
-            String opcion = scanner.nextLine();
+        while (jugador.estaVivo() && enemigo.estaVivo()) {
+            System.out.println("──────────────");
+            System.out.println(jugador.getNombre() + " HP: " + jugador.getSalud());
+            System.out.println(enemigo.getNombre() + " HP: " + enemigo.getSalud());
+            System.out.println("──────────────");
+            System.out.println("Elige una acción:");
+            System.out.println("1. Atacar");
+            System.out.println("2. Usar habilidad especial");
 
-            if(opcion.equals("1")) {
-                jugador.atacar(enemigo);
-            } else if(opcion.equals("2")) {
-                jugador.mostrarStats();
-                continue;
-            } else {
-                System.out.println("Opción inválida.");
-                continue;
+            int eleccion = scanner.nextInt();
+
+            switch (eleccion) {
+                case 1 -> jugador.atacar(enemigo);
+                case 2 -> usarHabilidad(jugador, enemigo);
+                default -> System.out.println("Acción no válida.");
             }
 
-            if(enemigo.estaVivo()) {
+            if (enemigo.estaVivo()) {
                 enemigo.atacar(jugador);
             }
         }
 
-        if(jugador.estaVivo()) {
-            System.out.println("\n¡Has derrotado a " + enemigo.getNombre() + "!");
+        if (jugador.estaVivo()) {
+            System.out.println("\n✅ ¡Has derrotado a " + enemigo.getNombre() + "!");
+        }
+    }
+
+    private void usarHabilidad(Jugador jugador, Enemigo enemigo) {
+        if (jugador instanceof EcoGuerrero guerrero) {
+            guerrero.golpeFeroz(enemigo);
+        } else if (jugador instanceof EcoPicaro picaro) {
+            picaro.ataqueSorpresa(enemigo);
+        } else if (jugador instanceof EcoSabio sabio) {
+            sabio.manipularRecuerdo(enemigo);
         } else {
-            System.out.println("\nHas sido derrotado...");
+            System.out.println("No tienes habilidades especiales disponibles.");
         }
     }
 }
