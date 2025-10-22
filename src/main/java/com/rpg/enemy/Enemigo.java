@@ -5,16 +5,19 @@ public class Enemigo {
     private String nombre;
     private int salud;
     private int ataque;
+    private int experienciaBase;
 
-    public Enemigo(String nombre, int salud, int ataque) {
+    public Enemigo(String nombre, int salud, int ataque, int experienciaBase) {
         this.nombre = nombre;
         this.salud = salud;
         this.ataque = ataque;
+        this.experienciaBase = experienciaBase;
     }
 
     public String getNombre() { return nombre; }
-    public int getSalud() { return salud; }
+    public int getVida() { return salud; }
     public int getAtaque() { return ataque; }
+    public int getExperienciaBase() { return experienciaBase; }
 
     public boolean estaVivo() { return salud > 0; }
 

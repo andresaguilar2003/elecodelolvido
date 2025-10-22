@@ -2,7 +2,9 @@ package com.rpg.game;
 
 import java.util.Scanner;
 import com.rpg.player.*;
+import com.rpg.world.Zona;
 import com.rpg.enemy.Enemigo;
+import com.rpg.items.Item;
 
 public class Batalla {
     private Scanner scanner = new Scanner(System.in);
@@ -12,8 +14,8 @@ public class Batalla {
 
         while (jugador.estaVivo() && enemigo.estaVivo()) {
             System.out.println("──────────────");
-            System.out.println(jugador.getNombre() + " HP: " + jugador.getSalud());
-            System.out.println(enemigo.getNombre() + " HP: " + enemigo.getSalud());
+            System.out.println(jugador.getNombre() + " HP: " + jugador.getVida());
+            System.out.println(enemigo.getNombre() + " HP: " + enemigo.getVida());
             System.out.println("──────────────");
             System.out.println("Elige una acción:");
             System.out.println("1. Atacar");
@@ -29,6 +31,16 @@ public class Batalla {
 
             if (enemigo.estaVivo()) {
                 enemigo.atacar(jugador);
+            }
+            // dentro del bloque donde se detecta derrota del enemigo:
+            if (!enemigo.estaVivo()) {
+                System.out.println("\n✅ ¡Has derrotado a " + enemigo.getNombre() + "!");
+                int xpGana = enemigo.getExperienciaBase() * 20; // si Enemigo tiene nivel
+                jugador.ganarExperiencia(xpGana);
+                // botin
+                Zona z = new Zona("temporal");
+                Item botin = z.posibleBotin();
+                if (botin != null) jugador.recogerItem(botin);
             }
         }
 
