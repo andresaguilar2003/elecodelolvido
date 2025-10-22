@@ -6,38 +6,40 @@ import java.util.function.Consumer;
 
 public class Dialogo {
     public static class Choice {
-        public final String text;
-        public final Consumer<Void> action; // lo que ocurre si se elige
+        public final String texto;
+        public final Consumer<Void> accion;
 
-        public Choice(String text, Consumer<Void> action) {
-            this.text = text;
-            this.action = action;
+        public Choice(String texto, Consumer<Void> accion) {
+            this.texto = texto;
+            this.accion = accion;
         }
     }
 
-    private String npcName;
-    private String line;
-    private List<Choice> choices;
+    private final String npc;
+    private final String mensaje;
+    private final List<Choice> opciones;
 
-    public Dialogo(String npcName, String line, List<Choice> choices) {
-        this.npcName = npcName;
-        this.line = line;
-        this.choices = choices;
+    public Dialogo(String npc, String mensaje, List<Choice> opciones) {
+        this.npc = npc;
+        this.mensaje = mensaje;
+        this.opciones = opciones;
     }
 
-    public void run() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println(npcName + ": \"" + line + "\"");
-        for (int i = 0; i < choices.size(); i++) {
-            System.out.println((i + 1) + ". " + choices.get(i).text);
+    public void iniciar() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("\n" + npc + ": \"" + mensaje + "\"");
+        for (int i = 0; i < opciones.size(); i++) {
+            System.out.println((i + 1) + ". " + opciones.get(i).texto);
         }
-        int opt = 0;
-        while (opt < 1 || opt > choices.size()) {
-            System.out.print("Elige: ");
+
+        int eleccion = -1;
+        while (eleccion < 1 || eleccion > opciones.size()) {
+            System.out.print("> Elige una opción: ");
             try {
-                opt = Integer.parseInt(scanner.nextLine());
-            } catch (Exception e) { opt = 0; }
+                eleccion = Integer.parseInt(sc.nextLine());
+            } catch (Exception e) { eleccion = -1; }
         }
-        choices.get(opt - 1).action.accept(null);
+
+        opciones.get(eleccion - 1).accion.accept(null);
     }
 }

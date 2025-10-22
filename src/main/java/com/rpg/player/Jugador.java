@@ -18,6 +18,7 @@ public class Jugador {
     private int nivel;
     private int experiencia;
     private int experienciaParaSiguiente;
+    private int reputacion; // -100 malvado, 0 neutral, +100 virtuoso
 
     // Inventario simple
     private List<Item> inventario = new ArrayList<>();
@@ -33,6 +34,7 @@ public class Jugador {
         this.nivel = 1;
         this.experiencia = 0;
         this.experienciaParaSiguiente = 50;
+        this.reputacion = 0;
     }
 
     // getters
@@ -47,6 +49,7 @@ public class Jugador {
     public int getExperienciaParaSiguiente() { return experienciaParaSiguiente; }
     public List<Item> getInventario() { return inventario; }
     public Item getObjetoEquipado() { return objetoEquipado; }
+    public int getReputacion() { return reputacion; }
 
     // setters protegidos para subclases
     protected void setFuerza(int fuerza) { this.fuerza = fuerza; }
@@ -129,6 +132,19 @@ public class Jugador {
         }
         objetoEquipado = item;
         System.out.println("Has equipado " + item.getNombre());
+    }
+
+    public void cambiarReputacion(int valor) {
+        reputacion += valor;
+        if (reputacion > 100) reputacion = 100;
+        if (reputacion < -100) reputacion = -100;
+        System.out.println("Tu aura moral ahora es: " + obtenerEtiquetaReputacion());
+    }
+
+    private String obtenerEtiquetaReputacion() {
+        if (reputacion >= 50) return "Luminoso";
+        if (reputacion <= -50) return "Oscuro";
+        return "Neutral";
     }
 
     // Mostrar stats
