@@ -2,11 +2,13 @@ package com.rpg.world;
 
 import com.rpg.dialogo.Dialogo;
 import com.rpg.dialogo.Dialogo.Choice;
+import com.rpg.misiones.Mision;
 import com.rpg.player.Jugador;
+import com.rpg.misiones.*;
 import java.util.List;
 
 public class Academia {
-    public void entrar(Jugador jugador) {
+    public void entrar(Jugador jugador, MisionManager MisionManager) {
         System.out.println("\n🏛️ Entras en la Academia del Eco. El aire vibra con ecos antiguos...");
         Dialogo d = new Dialogo("Mentor", 
             "Has vuelto, " + jugador.getNombre() + ". ¿Qué propósito guía tu reflejo?",
@@ -26,7 +28,16 @@ public class Academia {
             )
         );
         d.iniciar();
+        // 💫 Asignar primera misión
+        Mision primeraMision = new Mision(
+            "Eco del Bosque",
+            "Viaja al Bosque de los Susurros y derrota al Espectro Jefe para recuperar un fragmento del pasado.",
+            true,
+            100
+        );
 
+        MisionManager.asignarMision(primeraMision);
+        System.out.println("\n📜 Nueva misión asignada: " + primeraMision.getNombre());
         System.out.println("\nTu reputación actual: " + jugador.getReputacion());
         System.out.println("(Luminoso > 50 | Neutral -50–50 | Oscuro < -50)");
         System.out.println("\nPresiona ENTER para volver al Bosque...");

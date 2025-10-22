@@ -1,37 +1,13 @@
 {
-  "nombre": "Guerrerin",
+  "nombre": "dwqcw",
   "vida": 100,
-  "fuerza": 57,
-  "destreza": 38,
-  "inteligencia": 33,
-  "voluntad": 40,
-  "nivel": 15,
-  "experiencia": 70,
-  "experienciaParaSiguiente": 470,
-  "inventario": [
-    {
-      "nombre": "Poción Pequeña",
-      "consumible": true,
-      "curacion": 25,
-      "bonusAtaque": 0
-    },
-    {
-      "nombre": "Poción Pequeña",
-      "consumible": true,
-      "curacion": 25,
-      "bonusAtaque": 0
-    },
-    {
-      "nombre": "Daga Réplica",
-      "consumible": false,
-      "curacion": 0,
-      "bonusAtaque": 3
-    },
-    {
-      "nombre": "Pocion Pequena",
-      "consumible": true,
-      "curacion": 25,
-      "bonusAtaque": 0
-    }
-  ]
+  "fuerza": 5,
+  "destreza": 10,
+  "inteligencia": 15,
+  "voluntad": 12,
+  "nivel": 1,
+  "experiencia": 0,
+  "experienciaParaSiguiente": 50,
+  "reputacion": -25,
+  "inventario": []
 }

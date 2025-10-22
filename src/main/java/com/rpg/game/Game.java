@@ -9,6 +9,7 @@ import com.rpg.enemy.tipo.*;
 import com.rpg.world.Zona;
 import com.rpg.guardar.SaveManager;
 import com.rpg.world.Academia;
+import com.rpg.misiones.MisionManager;
 
 public class Game {
 
@@ -16,6 +17,7 @@ public class Game {
     private Jugador jugador;
     private Zona bosque = new Zona("Bosque de los Susurros");
     private SaveManager saveManager = new SaveManager();
+    private MisionManager misionManager = new MisionManager();
 
     public void iniciar() {
         System.out.println("══════════════════════════════════════════════");
@@ -72,6 +74,11 @@ public class Game {
         }
     }
 
+    private void entrarAcademia() {
+        Academia academia = new Academia();
+        academia.entrar(jugador, misionManager); // otorga misión principal
+    }
+
     private void primeraMision() {
         System.out.println("──────────────────────────────────────────────");
         System.out.println("🌀 Misión: Sincronízate con tus primeros ecos.");
@@ -81,47 +88,56 @@ public class Game {
         boolean continuar = true;
         Random rand = new Random();
 
+        entrarAcademia();
+
         while (continuar && jugador.estaVivo()) {
-            System.out.println("Te adentras más en el bosque...");
-            Enemigo enemigo = bosque.generarEnemigo();
-            System.out.println("¡Un " + enemigo.getNombre() + " aparece!\n");
+            System.out.println("\nTe adentras más en el bosque...");
+            System.out.println("══════════════════════════════════════════════");
+            System.out.println("1. Buscar enemigos");
+            System.out.println("2. Revisar misiones");
+            System.out.println("3. Comprobar inventario");
+            System.out.println("4. Guardar partida");
+            System.out.println("5. Salir del juego");
+            System.out.print("Elige una opción: ");
 
-            Batalla batalla = new Batalla();
-            batalla.iniciarCombate(jugador, enemigo);
+            int op = scanner.nextInt();
+            scanner.nextLine();
 
-            if (!jugador.estaVivo()) {
-                System.out.println("\n💀 Tu eco se ha desvanecido...");
-                continuar = false;
-            } else {
-                // EN EL LOOP DE PRIMERA MISION, DESPUÉS DE COMBATE:
-                System.out.println("\n══════════════════════════════════════════════");
-                System.out.println("Opciones:");
-                System.out.println("1. Seguir explorando");
-                System.out.println("2. Volver a la Academia");
-                System.out.println("3. Abrir inventario");
-                System.out.println("4. Guardar partida");
-                System.out.print("Elige una opción: ");
-                
-                int op = scanner.nextInt(); 
-                scanner.nextLine(); // limpiar buffer
-                
-                if (op == 2) {
-                    continuar = false;
-                    System.out.println("\n🏛️ Regresas a la Academia... algo ha cambiado en ti.");
-                    new Academia().entrar(jugador);
-                } else if (op == 3) {
-                    abrirInventario();
-                } else if (op == 4) {
+            switch (op) {
+                case 1 -> {
+                    Enemigo enemigo;
+                    // Probabilidad del Espectro Jefe
+                    if (rand.nextInt(10) == 0) enemigo = new EspectroJefe();
+                    else enemigo = bosque.generarEnemigo();
+
+                    System.out.println("🌲 ¡Un " + enemigo.getNombre() + " aparece!\n");
+                    Batalla batalla = new Batalla();
+                    batalla.iniciarCombate(jugador, enemigo);
+
+                    if (!enemigo.estaVivo() && enemigo instanceof EspectroJefe) {
+                        System.out.println("\n💫 Has derrotado al Espectro Jefe.");
+                        misionManager.completarMision("Eco del Bosque", jugador);
+                        continuar = false;
+                    }
+                }
+                case 2 -> misionManager.mostrarMisiones();
+                case 3 -> abrirInventario();
+                case 4 -> {
                     saveManager.guardar(jugador);
                     System.out.println("✅ Partida guardada correctamente.");
-                } else if (op != 1) {
-                    System.out.println("Opción no válida, continuando exploración...");
                 }
+                case 5 -> {
+                    System.out.println("👋 Cerrando el juego...");
+                    return;
+                }
+                default -> System.out.println("Opción no válida.");
             }
         }
 
         if (jugador.estaVivo()) {
-            System.out.println("\n🌙 Fin de la versión demo: Capítulo 1 — El Despertar 🌙");
+            System.out.println("\n🌙 Fin del Capítulo 1 — 'El Eco Despierta' 🌙");
+        } else {
+            System.out.println("\n💀 Tu eco se desvanece en la eternidad...");
         }
     }
 
