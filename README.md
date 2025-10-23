@@ -1,13 +1,11 @@
 # 🧠 EL Eco del Olvido
 
 <div align="center">
-  
-<img src="./images/banner.png" width="800" alt="Banner del juego" />
 
 ### *"Tu existencia es un eco... ¿Podrás mantenerla resonando?"*
 
 [![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)](https://java.com)
-[![Version](https://img.shields.io/badge/Version-1.0-blue?style=for-the-badge)](https://github.com/tuusuario/el-eco-del-olvido/releases)
+[![Version](https://img.shields.io/badge/Version-1.0-blue?style=for-the-badge)](https://github.com/andresaguilar2003/el-eco-del-olvido/releases)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 
 </div>
@@ -45,9 +43,9 @@ Te despiertas en la **Cámara de Creación** de la **Academia del Eco**, donde l
 
 ## 🎮 Características Principales
 
-| 🧠 **Sistema de Memoria** | ⚖️ **Estabilidad Existencial** | 🏛️ **Mundo Fragmentado** |
+| 🧠 **Sistema RPG** | ⚖️ **Estabilidad Existencial** | 🏛️ **Mundo Fragmentado** |
 |:--------------------------|:--------------------------------|:--------------------------|
-| Recupera fragmentos del héroe original | Mantén tu conciencia estable | Explora lugares cargados de emoción |
+| Interactúa con otros personajes | Mantén tu conciencia estable | Explora lugares cargados de emoción |
 
 ## 🛠️ Estado del Desarrollo
 
