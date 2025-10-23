@@ -18,7 +18,12 @@ public class Enemigo {
     public int getVida() { return salud; }
     public int getAtaque() { return ataque; }
     public int getExperienciaBase() { return experienciaBase; }
-
+        public void setVida(int salud) {
+        this.salud = Math.max(0, salud);
+    }
+    public void setAtaque(int ataque) {
+        this.ataque = Math.max(0, ataque);
+    }
     public boolean estaVivo() { return salud > 0; }
 
     public void recibirDaño(int dmg) {

@@ -6,7 +6,7 @@ import com.rpg.capitulo2.dialogos.DialogoLiora;
 import com.rpg.capitulo2.misiones.InvestigacionArchivos;
 import com.rpg.capitulo2.misiones.MisionCap2;
 import com.rpg.capitulo2.eventos.EncuentroConOlvidados;
-import com.rpg.capitulo2.facciones.*;
+import com.rpg.capitulo2.misiones.MisionAbismoOlvidado;
 
 public class Capitulo2 {
 
@@ -14,6 +14,7 @@ public class Capitulo2 {
     private MisionCap2 mision;
     private InvestigacionArchivos investigacionArchivos;
     private EncuentroConOlvidados encuentroOlvidados;
+    private MisionAbismoOlvidado misionAbismoOlvidado;
     private Scanner sc;
 
     public Capitulo2(Jugador jugador) {
@@ -21,6 +22,7 @@ public class Capitulo2 {
         this.mision = new MisionCap2();
         this.investigacionArchivos = new InvestigacionArchivos(jugador);
         this.encuentroOlvidados = new EncuentroConOlvidados(jugador);
+        this.misionAbismoOlvidado = new MisionAbismoOlvidado(jugador);
         this.sc = new Scanner(System.in);
     }
 
@@ -56,7 +58,9 @@ public class Capitulo2 {
         
         conectarConEncuentroOlvidados();
         
+
         // Fase 4: Conclusión del Capítulo
+        misionAbismoOlvidado.iniciarMision();
         concluirCapitulo();
     }
 
