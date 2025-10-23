@@ -7,7 +7,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" 
             fx:controller="com.rpg.controllers.MainController"
-            prefWidth="1200" prefHeight="800">
+            prefWidth="1400" prefHeight="900">
     
     <top>
         <VBox spacing="10" styleClass="header-box">
@@ -17,24 +17,25 @@
     </top>
     
     <center>
-        <HBox spacing="20" styleClass="main-container">
-            <!-- Contenedor para imagen del personaje -->
+        <HBox spacing="30" styleClass="main-container">
+            <!-- Contenedor para imagen del personaje - MÁS GRANDE -->
             <StackPane fx:id="imageContainer" styleClass="image-container" 
-                      prefWidth="300" maxWidth="300" minWidth="300"/>
+                      prefWidth="400" maxWidth="400" minWidth="400"/>
             
             <!-- Panel de texto y botones -->
-            <VBox spacing="20" VBox.vgrow="ALWAYS">
+            <VBox spacing="25" VBox.vgrow="ALWAYS">
                 <TextArea fx:id="textArea" editable="false" styleClass="game-text-area" 
-                         prefWidth="700" prefHeight="500"
+                         prefWidth="700" prefHeight="550"
                          VBox.vgrow="ALWAYS"/>
                 
-                <VBox fx:id="buttonContainer" spacing="10" alignment="CENTER"/>
+                <VBox fx:id="buttonContainer" spacing="15" alignment="CENTER" 
+                      VBox.vgrow="NEVER"/>
             </VBox>
         </HBox>
     </center>
     
     <bottom>
-        <HBox spacing="10" alignment="CENTER" styleClass="status-bar">
+        <HBox spacing="15" alignment="CENTER" styleClass="status-bar">
             <Label fx:id="statusLabel" text="Estado: Menú Principal"/>
             <Separator orientation="VERTICAL"/>
             <Label fx:id="playerInfoLabel" text="Jugador: -"/>

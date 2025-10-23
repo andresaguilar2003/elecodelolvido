@@ -18,9 +18,9 @@ public class Zona {
     public Enemigo generarEnemigo() {
         int n = rand.nextInt(100);
         if (n < 70) {
-            return new Espectro("Espectro del Pasado", 40, 7);
+            return new Espectro("Espectro", 40, 7);
         } else {
-            return new EspectroJefe("Guardia Ilusorio", 80, 12);
+            return new EspectroJefe("Espectro Jefe", 80, 12);
         }
     }
 

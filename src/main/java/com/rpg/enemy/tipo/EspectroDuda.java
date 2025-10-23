@@ -8,7 +8,7 @@ public class EspectroDuda extends Enemigo {
     private String nombreJugador;
 
     public EspectroDuda(String nombreJugador) {
-        super("Espectro de la Duda", 100, 15,130);
+        super("Espectro Duda", 100, 15,130);
         this.nombreJugador = nombreJugador;
     }
 

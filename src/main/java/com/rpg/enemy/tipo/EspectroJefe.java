@@ -8,6 +8,6 @@ public class EspectroJefe extends Enemigo {
     }
     
     public EspectroJefe() {
-        super("Espectro del Pasado - Jefe", 80, 12, 100);
+        super("Espectro Jefe", 80, 12, 100);
     }
 }

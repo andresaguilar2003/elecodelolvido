@@ -1,3 +1,4 @@
+// MainController.java (actualizado)
 package com.rpg.controllers;
 
 import javafx.fxml.FXML;
@@ -5,6 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.geometry.Pos;
 
 import com.rpg.ui.AcademiaGUI;
 import com.rpg.ui.GameGUI;
@@ -27,10 +29,10 @@ public class MainController {
         gameGUI = new GameGUI();
         textAnimator = new TextAnimator(textArea);
         
-        // Configurar ImageView para personajes
+        // Configurar ImageView para personajes - MÁS GRANDE
         characterImageView = new ImageView();
-        characterImageView.setFitWidth(200);
-        characterImageView.setFitHeight(200);
+        characterImageView.setFitWidth(450);  // Aumentado de 200 a 350
+        characterImageView.setFitHeight(500); // Aumentado de 200 a 350
         characterImageView.setPreserveRatio(true);
         characterImageView.setVisible(false);
         
@@ -75,6 +77,10 @@ public class MainController {
             case MENU_PRINCIPAL:
                 cargarImagen("/images/portal.png");
                 break;
+            case ELECCION_CLASE:
+                // No mostrar imagen específica durante selección de clase
+                characterImageView.setVisible(false);
+                break;
             default:
                 characterImageView.setVisible(false);
         }
@@ -92,12 +98,11 @@ public class MainController {
     }
     
     private void cargarImagenEnemigo(String nombreEnemigo) {
-        String ruta = "/images/enemies/" + nombreEnemigo.toLowerCase().replace(" ", "_") + ".jpg";
+        String ruta = "/images/enemies/" + nombreEnemigo.replace(" ", "") + ".jpg";
         cargarImagen(ruta);
     }
     
-    // En MainController.java - actualiza el método actualizarBotones()
-            private void actualizarBotones() {
+    private void actualizarBotones() {
         buttonContainer.getChildren().clear();
         
         switch (gameGUI.getEstadoActual()) {
@@ -173,8 +178,7 @@ public class MainController {
         crearBoton("Salir", () -> System.exit(0));
     }
 
-
-        private void mostrarDialogoAcademia() {
+    private void mostrarDialogoAcademia() {
         AcademiaGUI.DialogoAcademia dialogo = gameGUI.getDialogoActual();
         if (dialogo != null) {
             int index = 0;
@@ -208,32 +212,100 @@ public class MainController {
         
         dialog.showAndWait().ifPresent(nombre -> {
             if (nombre != null && !nombre.trim().isEmpty()) {
-                crearBotonesClase(nombre.trim());
+                mostrarSeleccionClaseConImagenes(nombre.trim());
             }
         });
     }
     
-        private void crearBotonesClase(String nombre) {
+    private void mostrarSeleccionClaseConImagenes(String nombre) {
         buttonContainer.getChildren().clear();
         
         Label label = new Label("Elige tu tipo de Eco para " + nombre + ":");
-        label.setStyle("-fx-text-fill: #e94560; -fx-font-size: 16px; -fx-font-weight: bold;");
+        label.setStyle("-fx-text-fill: #e94560; -fx-font-size: 20px; -fx-font-weight: bold; -fx-padding: 10px;");
         buttonContainer.getChildren().add(label);
         
-        crearBoton("⚔️ Eco del Guerrero", () -> {
-            gameGUI.elegirClase(nombre, 1);
+        // Crear contenedor horizontal para las opciones con imágenes
+        HBox clasesContainer = new HBox(20);
+        clasesContainer.setAlignment(Pos.CENTER);
+        clasesContainer.setStyle("-fx-padding: 20px;");
+        
+        // Eco del Guerrero
+        VBox guerreroBox = crearOpcionClase(
+            "⚔️ Eco del Guerrero", 
+            "/images/aliados/EcoGuerrero.jpg", 
+            nombre, 
+            1,
+            "Fuerza bruta y resistencia\n- Alta fuerza\n- Buena defensa\n- Habilidades de combate cuerpo a cuerpo"
+        );
+        
+        // Eco del Pícaro
+        VBox picaroBox = crearOpcionClase(
+            "🗡️ Eco del Pícaro", 
+            "/images/aliados/EcoPicaro.jpg", 
+            nombre, 
+            2,
+            "Sigilo y precisión\n- Alta destreza\n- Ataques críticos\n- Habilidades de evasión"
+        );
+        
+        // Eco del Sabio
+        VBox sabioBox = crearOpcionClase(
+            "🔮 Eco del Sabio", 
+            "/images/aliados/EcoSabio.jpg", 
+            nombre, 
+            3,
+            "Conocimiento y magia\n- Alta inteligencia\n- Poderes mágicos\n- Habilidades de apoyo"
+        );
+        
+        clasesContainer.getChildren().addAll(guerreroBox, picaroBox, sabioBox);
+        buttonContainer.getChildren().add(clasesContainer);
+    }
+    
+    private VBox crearOpcionClase(String nombreClase, String rutaImagen, String nombreJugador, int tipoClase, String descripcion) {
+        VBox container = new VBox(10);
+        container.setAlignment(Pos.CENTER);
+        container.setStyle("-fx-padding: 15px; -fx-border-color: #e94560; -fx-border-width: 2px; -fx-border-radius: 10px; -fx-background-color: #16213e;");
+        
+        // Imagen de la clase
+        ImageView imagenClase = new ImageView();
+        imagenClase.setFitWidth(180);
+        imagenClase.setFitHeight(180);
+        imagenClase.setPreserveRatio(true);
+        
+        try {
+            Image image = new Image(getClass().getResourceAsStream(rutaImagen));
+            imagenClase.setImage(image);
+        } catch (Exception e) {
+            System.out.println("No se pudo cargar la imagen: " + rutaImagen);
+            // Crear un placeholder si la imagen no existe
+            imagenClase.setStyle("-fx-background-color: #0f3460; -fx-min-width: 180; -fx-min-height: 180;");
+        }
+        
+        // Botón de selección
+        Button boton = new Button(nombreClase);
+        boton.setStyle("-fx-background-color: #e94560; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10px 15px; -fx-min-width: 180px; -fx-cursor: hand;");
+        boton.setOnAction(e -> {
+            gameGUI.elegirClase(nombreJugador, tipoClase);
             actualizarInterfazCompleta();
         });
         
-        crearBoton("🗡️ Eco del Pícaro", () -> {
-            gameGUI.elegirClase(nombre, 2);
-            actualizarInterfazCompleta();
+        boton.setOnMouseEntered(e -> {
+            boton.setStyle("-fx-background-color: #ff6b81; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10px 15px; -fx-min-width: 180px; -fx-cursor: hand;");
+            container.setStyle("-fx-padding: 15px; -fx-border-color: #ff6b81; -fx-border-width: 3px; -fx-border-radius: 10px; -fx-background-color: #1a2b4a;");
         });
         
-        crearBoton("🔮 Eco del Sabio", () -> {
-            gameGUI.elegirClase(nombre, 3);
-            actualizarInterfazCompleta();
+        boton.setOnMouseExited(e -> {
+            boton.setStyle("-fx-background-color: #e94560; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10px 15px; -fx-min-width: 180px; -fx-cursor: hand;");
+            container.setStyle("-fx-padding: 15px; -fx-border-color: #e94560; -fx-border-width: 2px; -fx-border-radius: 10px; -fx-background-color: #16213e;");
         });
+        
+        // Descripción
+        Label descLabel = new Label(descripcion);
+        descLabel.setStyle("-fx-text-fill: #ffffff; -fx-font-size: 12px; -fx-text-alignment: center; -fx-wrap-text: true;");
+        descLabel.setMaxWidth(180);
+        descLabel.setAlignment(Pos.CENTER);
+        
+        container.getChildren().addAll(imagenClase, boton, descLabel);
+        return container;
     }
     
     private void actualizarEstadoJugador() {

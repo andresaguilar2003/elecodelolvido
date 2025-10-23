@@ -8,7 +8,7 @@ public class GuardianSecreto extends Enemigo {
     private boolean faseFinal = false;
 
     public GuardianSecreto() {
-        super("Guardián del Secreto", 160, 20,300);
+        super("Guardin Secreto", 160, 20,300);
     }
 
     @Override
