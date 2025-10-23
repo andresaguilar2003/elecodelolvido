@@ -29,6 +29,11 @@ public class GameGUI {
         FIN_CAPITULO,
         ACADEMIA_DIALOGO  // Nuevo estado para el diálogo de la academia
     }
+
+    // En GameGUI.java - añade este método
+    public Enemigo getEnemigoActual() {
+        return enemigoActual;
+    }
     
     private GameState estadoActual = GameState.MENU_PRINCIPAL;
     private String mensajeActual = "";

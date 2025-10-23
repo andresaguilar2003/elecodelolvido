@@ -6,7 +6,8 @@
 <?import javafx.geometry.Insets?>
 
 <BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" 
-            fx:controller="com.rpg.controllers.MainController">
+            fx:controller="com.rpg.controllers.MainController"
+            prefWidth="1200" prefHeight="800">
     
     <top>
         <VBox spacing="10" styleClass="header-box">
@@ -16,14 +17,20 @@
     </top>
     
     <center>
-        <StackPane>
-            <VBox spacing="20" styleClass="main-container">
+        <HBox spacing="20" styleClass="main-container">
+            <!-- Contenedor para imagen del personaje -->
+            <StackPane fx:id="imageContainer" styleClass="image-container" 
+                      prefWidth="300" maxWidth="300" minWidth="300"/>
+            
+            <!-- Panel de texto y botones -->
+            <VBox spacing="20" VBox.vgrow="ALWAYS">
                 <TextArea fx:id="textArea" editable="false" styleClass="game-text-area" 
+                         prefWidth="700" prefHeight="500"
                          VBox.vgrow="ALWAYS"/>
                 
                 <VBox fx:id="buttonContainer" spacing="10" alignment="CENTER"/>
             </VBox>
-        </StackPane>
+        </HBox>
     </center>
     
     <bottom>

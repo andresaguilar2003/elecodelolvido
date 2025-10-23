@@ -15,7 +15,7 @@ public class MainApp extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/rpg/ui/MainView.fxml"));
         Parent root = loader.load();
         
-        Scene scene = new Scene(root, 1000, 700);
+        Scene scene = new Scene(root, 1200, 800);
         
         // Corrección: CSS en la ubicación correcta
         try {
