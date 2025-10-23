@@ -1,5 +1,4 @@
-# Generar el README mejorado con R
-cat('# <div align="center"><img src="https://img.shields.io/badge/EL_ECO_DEL_OLVIDO-EPIC_RPG-9b59b6?style=for-the-badge&logo=starship&logoColor=white" alt="EL ECO DEL OLVIDO" /></div>
+# El Eco del Olvido
 
 <div align="center">
 
@@ -26,7 +25,7 @@ Tu personaje es **frágil, incompleto**, construido a partir de fragmentos de me
 <br>
 <br>
 <div style="background: #2c3e50; padding: 10px 20px; border-radius: 8px; display: inline-block;">
-<em style="color: #ecf0f1; font-size: 14px;">**"No eres el héroe... solo su resonancia."**</em>
+<em style="color: #ecf0f1; font-size: 11px;">"No eres el héroe... solo su resonancia."</em>
 </div>
 </div>
 
@@ -84,4 +83,4 @@ Te despiertas en la **CÁMARA DE CREACIÓN** de la **ACADEMIA DEL ECO**, donde l
 
 [![Star History Chart](https://api.star-history.com/svg?repos=andresaguilar2003/el-eco-del-olvido&type=Date)](https://star-history.com/#andresaguilar2003/el-eco-del-olvido&Date)
 
-</div>')
+</div>
