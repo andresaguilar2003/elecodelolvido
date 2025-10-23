@@ -63,7 +63,7 @@ public class MainController {
         
         switch (gameGUI.getEstadoActual()) {
             case ACADEMIA_DIALOGO:
-                cargarImagen("/images/mentor.png");
+                cargarImagen("/images/aliados/Alaric.jpg");
                 break;
             case BATALLA:
                 if (gameGUI.getEnemigoActual() != null) {
@@ -92,7 +92,7 @@ public class MainController {
     }
     
     private void cargarImagenEnemigo(String nombreEnemigo) {
-        String ruta = "/images/enemies/" + nombreEnemigo.toLowerCase().replace(" ", "_") + ".png";
+        String ruta = "/images/enemies/" + nombreEnemigo.toLowerCase().replace(" ", "_") + ".jpg";
         cargarImagen(ruta);
     }
     
