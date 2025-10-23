@@ -1,6 +1,6 @@
 # 🧠 EL Eco del Olvido
 
-![Banner del Juego](https://via.placeholder.com/800x200/2C2F33/FFFFFF?text=EL+Eco+del+Olvido)
+![Banner del Juego](src\main\resources\images\readme\banner.png)
 *"Tu existencia es un eco... ¿Podrás mantenerla resonando?"*
 
 ---
@@ -13,7 +13,7 @@ En **EL Eco del Olvido**, encarnas a una **"Réplica"** - una recreación imperf
 
 Tu personaje es frágil, incompleto, construido a partir de fragmentos de memoria y ecos vitales del original. La gente te mira con una mezcla de **esperanza y recelo**, preguntándose si serás su salvación o solo un pálido reflejo del pasado.
 
-![Réplica contemplando](https://via.placeholder.com/400x200/1a1f2c/FFFFFF?text=Réplica+en+la+Academia)
+![Réplica contemplando](src\main\resources\images\readme\imagenread.png)
 
 ## 📖 La Trama Inicial
 
