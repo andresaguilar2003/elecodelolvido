@@ -1,4 +1,4 @@
-# 🧠 EL Eco del Olvido
+# EL ECO DEL OLVIDO
 
 <div align="center">
 
@@ -8,46 +8,55 @@
 
 ---
 
-<div align="center">
+<div align="center" style="background: #1a1f2c; padding: 30px; border-radius: 15px; border-left: 4px solid #3498db; border-right: 4px solid #3498db;">
 
-<br/>
-<sup><em>"No eres el héroe... solo su resonancia."</em></sup>
+> ## 🌌 **EL LEGADO FRAGMENTADO**
 
-</div>
-
-<br/>
-
-<div style="background: #1a1f2c; padding: 25px; border-radius: 15px; border-left: 4px solid #3498db;">
-
-En **EL Eco del Olvido**, encarnas a una **"Réplica"** - una recreación imperfecta de un héroe legendario que sacrificó su vida hace una generación para salvar al mundo de **"El Silencio"**. 
+En **EL ECO DEL OLVIDO**, encarnas a una **"RÉPLICA"** - una recreación imperfecta de un héroe legendario que sacrificó su vida hace una generación para salvar al mundo de **"EL SILENCIO"**. 
 
 Tu personaje es **frágil, incompleto**, construido a partir de fragmentos de memoria y ecos vitales del original. La gente te mira con una mezcla de **esperanza y recelo**, preguntándose si serás su salvación o solo un pálido reflejo del pasado.
 
-<img src="./images/imagenread.png" width="400" alt="Réplica contemplando" />
+<br/>
+
+<div align="center">
+<img src="./images/imagenread.png" width="450" alt="Réplica contemplando" style="border-radius: 10px; border: 2px solid #3498db;"/>
+<br/>
+<br/>
+<sup><em>**"No eres el héroe... solo su resonancia."**</em></sup>
+</div>
 
 </div>
 
-## 📖 La Trama Inicial
+## 📜 LA TRAMA INICIAL
 
-> 🎯 **Tu objetivo no es salvar el mundo... todavía.**
+> 🎯 **TU OBJETIVO NO ES SALVAR EL MUNDO... TODAVÍA.**
 
-Te despiertas en la **Cámara de Creación** de la **Academia del Eco**, donde los sabios intentan recrear a los héroes del pasado. Un mentor te explica tu naturaleza y tu misión más urgente: **estabilizar tu existencia**.
+Te despiertas en la **CÁMARA DE CREACIÓN** de la **ACADEMIA DEL ECO**, donde los sabios intentan recrear a los héroes del pasado. Un mentor te explica tu naturaleza y tu misión más urgente: **ESTABILIZAR TU EXISTENCIA**.
 
 **Es asegurarte de que tu conciencia no se disuelva en el olvido.**
 
-## 🎮 Características Principales
-
-| 🧠 **Sistema RPG** | ⚖️ **Estabilidad Existencial** | 🏛️ **Mundo Fragmentado** |
-|:--------------------------|:--------------------------------|:--------------------------|
-| Interactúa con otros personajes | Mantén tu conciencia estable | Explora lugares cargados de emoción |
-
-## 🛠️ Estado del Desarrollo
+## ⚡ CARACTERÍSTICAS PRINCIPALES
 
 <div align="center">
 
-[![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)](https://java.com)
-[![Version](https://img.shields.io/badge/Version-1.0-blue?style=for-the-badge)](https://github.com/andresaguilar2003/el-eco-del-olvido/releases)
-[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
+| 🧠 **SISTEMA RPG** | ⚖️ **ESTABILIDAD EXISTENCIAL** | 🏛️ **MUNDO FRAGMENTADO** |
+|:------------------:|:------------------------------:|:------------------------:|
+| Interactúa con otros personajes y descubre tu pasado | Mantén tu conciencia estable o enfrenta la disolución | Explora lugares cargados de emoción del héroe original |
+
+</div>
+
+## 🛠️ ESTADO DEL DESARROLLO
+
+<div align="center">
+
+[![Java](https://img.shields.io/badge/Java-17-ED8B00?style=for-the-badge&logo=java&logoColor=white)](https://java.com)
+[![Version](https://img.shields.io/badge/Versión-1.0-3498db?style=for-the-badge)](https://github.com/andresaguilar2003/el-eco-del-olvido/releases)
+[![License](https://img.shields.io/badge/Licencia-MIT-27ae60?style=for-the-badge)](LICENSE)
+[![Platform](https://img.shields.io/badge/Plataforma-PC-e74c3c?style=for-the-badge)](https://github.com/andresaguilar2003/el-eco-del-olvido)
+
+<br/>
+
+**📅 Estado actual:** **EN DESARROLLO ACTIVO**  
 
 </div>
 
@@ -55,6 +64,7 @@ Te despiertas en la **Cámara de Creación** de la **Academia del Eco**, donde l
 
 <div align="center">
 
-### ⭐ ¿Te intriga el concepto? ¡Dale una estrella al repositorio!
+## ✨ **¿TE INTRIGA EL CONCEPTO?**  
+### ⭐ **¡Dale una estrella al repositorio para seguir el desarrollo!**
 
 </div>
