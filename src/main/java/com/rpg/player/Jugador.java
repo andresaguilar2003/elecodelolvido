@@ -34,7 +34,7 @@ public class Jugador {
         this.voluntad = 10;
         this.nivel = 1;
         this.experiencia = 0;
-        this.experienciaParaSiguiente = 50;
+        this.experienciaParaSiguiente = 20;
         this.reputacion = 0;
     }
 
@@ -96,7 +96,7 @@ public class Jugador {
         destreza += 2;
         inteligencia += 2;
         voluntad += 2;
-        vida = 100;
+        vida += 2;
         experienciaParaSiguiente += 30; // escala
         System.out.println("¡Has subido a nivel " + nivel + "! Stats mejorados.");
     }
