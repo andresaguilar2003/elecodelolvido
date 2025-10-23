@@ -1,16 +1,57 @@
-.titulo {
-    -fx-font-size: 28px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #e2c3ff;
+/* styles.css */
+.root {
+    -fx-background-color: #1a1a2e;
+    -fx-text-fill: #e6e6e6;
 }
 
-.button {
-    -fx-background-color: #4b0082;
+.header-box {
+    -fx-background-color: #16213e;
+    -fx-padding: 20px;
+    -fx-alignment: center;
+}
+
+.title-label {
+    -fx-text-fill: #e94560;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+.main-container {
+    -fx-padding: 20px;
+    -fx-spacing: 20px;
+}
+
+.game-text-area {
+    -fx-background-color: #0f3460;
+    -fx-text-fill: #e6e6e6;
+    -fx-border-color: #e94560;
+    -fx-border-width: 2px;
+    -fx-font-size: 14px;
+    -fx-font-family: "Consolas", monospace;
+}
+
+.game-button {
+    -fx-background-color: #e94560;
     -fx-text-fill: white;
+    -fx-font-size: 14px;
     -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-min-width: 200px;
 }
 
-.text-area {
-    -fx-control-inner-background: #1a1a2e;
-    -fx-text-fill: #f5f5f5;
+.game-button:hover {
+    -fx-background-color: #ff6b81;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.status-bar {
+    -fx-background-color: #16213e;
+    -fx-padding: 10px;
+}
+
+.info-label {
+    -fx-text-fill: #e94560;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
 }

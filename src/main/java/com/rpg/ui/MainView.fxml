@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="com.rpg.controllers.MainController">
+    
+    <top>
+        <VBox spacing="10" styleClass="header-box">
+            <Label text="🌌 RÉPLICA: EL ECO DEL HÉROE 🌌" styleClass="title-label"/>
+            <Separator/>
+        </VBox>
+    </top>
+    
+    <center>
+        <StackPane>
+            <VBox spacing="20" styleClass="main-container">
+                <TextArea fx:id="textArea" editable="false" styleClass="game-text-area" 
+                         VBox.vgrow="ALWAYS"/>
+                
+                <VBox fx:id="buttonContainer" spacing="10" alignment="CENTER"/>
+            </VBox>
+        </StackPane>
+    </center>
+    
+    <bottom>
+        <HBox spacing="10" alignment="CENTER" styleClass="status-bar">
+            <Label fx:id="statusLabel" text="Estado: Menú Principal"/>
+            <Separator orientation="VERTICAL"/>
+            <Label fx:id="playerInfoLabel" text="Jugador: -"/>
+        </HBox>
+    </bottom>
+</BorderPane>
