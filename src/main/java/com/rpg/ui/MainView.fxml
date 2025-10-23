@@ -18,19 +18,26 @@
     
     <center>
         <HBox spacing="30" styleClass="main-container">
-            <!-- Contenedor para imagen del personaje - MÁS GRANDE -->
+            <!-- Panel izquierdo: Imagen del personaje/enemigo -->
             <StackPane fx:id="imageContainer" styleClass="image-container" 
                       prefWidth="400" maxWidth="400" minWidth="400"/>
             
-            <!-- Panel de texto y botones -->
-            <VBox spacing="25" VBox.vgrow="ALWAYS">
+            <!-- Panel central: Texto y stats del jugador -->
+            <VBox spacing="20" VBox.vgrow="ALWAYS">
+                <!-- Área de texto -->
                 <TextArea fx:id="textArea" editable="false" styleClass="game-text-area" 
-                         prefWidth="700" prefHeight="550"
+                         prefWidth="600" prefHeight="400"
                          VBox.vgrow="ALWAYS"/>
                 
+                <!-- Botones -->
                 <VBox fx:id="buttonContainer" spacing="15" alignment="CENTER" 
                       VBox.vgrow="NEVER"/>
             </VBox>
+            
+            <!-- Panel derecho: Stats del jugador -->
+            <VBox fx:id="playerStatsContainer" spacing="10" 
+                  prefWidth="300" maxWidth="300" minWidth="300"
+                  styleClass="player-stats-container"/>
         </HBox>
     </center>
     

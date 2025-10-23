@@ -19,10 +19,12 @@ public class MainController {
     @FXML private Label statusLabel;
     @FXML private Label playerInfoLabel;
     @FXML private StackPane imageContainer;
+    @FXML private VBox playerStatsContainer; // Nuevo contenedor para stats del jugador
     
     private GameGUI gameGUI;
     private TextAnimator textAnimator;
     private ImageView characterImageView;
+    private ImageView playerAvatarView; // Nueva ImageView para el avatar del jugador
     
     @FXML
     public void initialize() {
@@ -31,13 +33,23 @@ public class MainController {
         
         // Configurar ImageView para personajes - MÁS GRANDE
         characterImageView = new ImageView();
-        characterImageView.setFitWidth(450);  // Aumentado de 200 a 350
-        characterImageView.setFitHeight(500); // Aumentado de 200 a 350
+        characterImageView.setFitWidth(350);
+        characterImageView.setFitHeight(350);
         characterImageView.setPreserveRatio(true);
         characterImageView.setVisible(false);
         
-        // Añadir ImageView al contenedor
+        // Configurar ImageView para el avatar del jugador (siempre visible)
+        playerAvatarView = new ImageView();
+        playerAvatarView.setFitWidth(120);
+        playerAvatarView.setFitHeight(120);
+        playerAvatarView.setPreserveRatio(true);
+        playerAvatarView.setVisible(false);
+        
+        // Añadir ImageViews al contenedor
         imageContainer.getChildren().add(characterImageView);
+        
+        // Configurar el contenedor de stats del jugador
+        configurarPlayerStatsContainer();
         
         // Permitir saltar animación haciendo clic
         textArea.setOnMouseClicked(e -> {
@@ -48,9 +60,27 @@ public class MainController {
         
         actualizarInterfazCompleta();
     }
-    
+
+    private void configurarPlayerStatsContainer() {
+        // Inicializar el contenedor con un diseño básico
+        playerStatsContainer.setAlignment(Pos.TOP_CENTER);
+        playerStatsContainer.setStyle("-fx-padding: 15px; -fx-background-color: #16213e; -fx-border-color: #e94560; -fx-border-width: 2px; -fx-border-radius: 10px;");
+        
+        // Crear contenido inicial del contenedor
+        Label tituloInicial = new Label("Crea tu personaje");
+        tituloInicial.setStyle("-fx-text-fill: #e94560; -fx-font-weight: bold; -fx-font-size: 16px;");
+        
+        Label instruccion = new Label("Selecciona 'Nueva Partida' para comenzar");
+        instruccion.setStyle("-fx-text-fill: white; -fx-font-size: 12px; -fx-wrap-text: true;");
+        instruccion.setMaxWidth(200);
+        instruccion.setAlignment(Pos.CENTER);
+        
+        playerStatsContainer.getChildren().addAll(tituloInicial, instruccion);
+    }
+
     private void actualizarInterfazCompleta() {
         actualizarImagenPersonaje();
+        actualizarAvatarJugador();
         actualizarEstadoJugador();
         actualizarBotones(); // Los botones aparecen inmediatamente
         
@@ -65,20 +95,19 @@ public class MainController {
         
         switch (gameGUI.getEstadoActual()) {
             case ACADEMIA_DIALOGO:
-                cargarImagen("/images/aliados/Alaric.jpg");
+                cargarImagen("/images/aliados/Alaric.jpg", characterImageView);
                 break;
             case BATALLA:
                 if (gameGUI.getEnemigoActual() != null) {
-                    cargarImagenEnemigo(gameGUI.getEnemigoActual().getNombre());
+                    cargarImagenEnemigo(gameGUI.getEnemigoActual().getNombre(), characterImageView);
                 } else {
                     characterImageView.setVisible(false);
                 }
                 break;
             case MENU_PRINCIPAL:
-                cargarImagen("/images/portal.png");
+                cargarImagen("/images/portal.png", characterImageView);
                 break;
             case ELECCION_CLASE:
-                // No mostrar imagen específica durante selección de clase
                 characterImageView.setVisible(false);
                 break;
             default:
@@ -86,20 +115,56 @@ public class MainController {
         }
     }
     
-    private void cargarImagen(String ruta) {
-        try {
-            Image image = new Image(getClass().getResourceAsStream(ruta));
-            characterImageView.setImage(image);
-            characterImageView.setVisible(true);
-        } catch (Exception e) {
-            System.out.println("No se pudo cargar la imagen: " + ruta);
-            characterImageView.setVisible(false);
+    private void actualizarAvatarJugador() {
+        if (gameGUI.getJugador() != null) {
+            playerAvatarView.setVisible(true);
+            String rutaImagen = obtenerRutaAvatarJugador();
+            cargarImagen(rutaImagen, playerAvatarView);
+            actualizarPlayerStatsContainer(); // Actualizar stats cuando hay jugador
+        } else {
+            playerAvatarView.setVisible(false);
+            // Mostrar mensaje de crear personaje cuando no hay jugador
+            if (gameGUI.getEstadoActual() == GameGUI.GameState.MENU_PRINCIPAL) {
+                playerStatsContainer.getChildren().clear();
+                Label titulo = new Label("Crea tu personaje");
+                titulo.setStyle("-fx-text-fill: #e94560; -fx-font-weight: bold; -fx-font-size: 16px;");
+                
+                Label instruccion = new Label("Selecciona 'Nueva Partida' para comenzar");
+                instruccion.setStyle("-fx-text-fill: white; -fx-font-size: 12px; -fx-wrap-text: true;");
+                instruccion.setMaxWidth(200);
+                instruccion.setAlignment(Pos.CENTER);
+                
+                playerStatsContainer.getChildren().addAll(titulo, instruccion);
+            }
         }
     }
     
-    private void cargarImagenEnemigo(String nombreEnemigo) {
-        String ruta = "/images/enemies/" + nombreEnemigo.replace(" ", "") + ".jpg";
-        cargarImagen(ruta);
+    private String obtenerRutaAvatarJugador() {
+        if (gameGUI.getJugador() instanceof com.rpg.player.EcoGuerrero) {
+            return "/images/aliados/EcoGuerrero.jpg";
+        } else if (gameGUI.getJugador() instanceof com.rpg.player.EcoPicaro) {
+            return "/images/aliados/EcoPicaro.jpg";
+        } else if (gameGUI.getJugador() instanceof com.rpg.player.EcoSabio) {
+            return "/images/aliados/EcoSabio.jpg";
+        } else {
+            return "/images/aliados/EcoGuerrero.jpg";
+        }
+    }
+
+    private void cargarImagen(String ruta, ImageView imageView) {
+        try {
+            Image image = new Image(getClass().getResourceAsStream(ruta));
+            imageView.setImage(image);
+            imageView.setVisible(true);
+        } catch (Exception e) {
+            System.out.println("No se pudo cargar la imagen: " + ruta);
+            imageView.setVisible(false);
+        }
+    }
+    
+    private void cargarImagenEnemigo(String nombreEnemigo, ImageView imageView) {
+        String ruta = "/images/enemies/" + nombreEnemigo.toLowerCase().replace(" ", "_") + ".jpg";
+        cargarImagen(ruta, imageView);
     }
     
     private void actualizarBotones() {
@@ -147,6 +212,10 @@ public class MainController {
             case BATALLA:
                 crearBoton("Atacar", () -> {
                     gameGUI.atacarEnemigo();
+                    actualizarInterfazCompleta();
+                });
+                crearBoton("Ataque Especial", () -> {
+                    gameGUI.usarHabilidadEspecial();
                     actualizarInterfazCompleta();
                 });
                 crearBoton("Huir", () -> {
@@ -217,19 +286,17 @@ public class MainController {
         });
     }
     
-    private void mostrarSeleccionClaseConImagenes(String nombre) {
+        private void mostrarSeleccionClaseConImagenes(String nombre) {
         buttonContainer.getChildren().clear();
         
         Label label = new Label("Elige tu tipo de Eco para " + nombre + ":");
         label.setStyle("-fx-text-fill: #e94560; -fx-font-size: 20px; -fx-font-weight: bold; -fx-padding: 10px;");
         buttonContainer.getChildren().add(label);
         
-        // Crear contenedor horizontal para las opciones con imágenes
         HBox clasesContainer = new HBox(20);
         clasesContainer.setAlignment(Pos.CENTER);
         clasesContainer.setStyle("-fx-padding: 20px;");
         
-        // Eco del Guerrero
         VBox guerreroBox = crearOpcionClase(
             "⚔️ Eco del Guerrero", 
             "/images/aliados/EcoGuerrero.jpg", 
@@ -238,7 +305,6 @@ public class MainController {
             "Fuerza bruta y resistencia\n- Alta fuerza\n- Buena defensa\n- Habilidades de combate cuerpo a cuerpo"
         );
         
-        // Eco del Pícaro
         VBox picaroBox = crearOpcionClase(
             "🗡️ Eco del Pícaro", 
             "/images/aliados/EcoPicaro.jpg", 
@@ -247,7 +313,6 @@ public class MainController {
             "Sigilo y precisión\n- Alta destreza\n- Ataques críticos\n- Habilidades de evasión"
         );
         
-        // Eco del Sabio
         VBox sabioBox = crearOpcionClase(
             "🔮 Eco del Sabio", 
             "/images/aliados/EcoSabio.jpg", 
@@ -259,13 +324,13 @@ public class MainController {
         clasesContainer.getChildren().addAll(guerreroBox, picaroBox, sabioBox);
         buttonContainer.getChildren().add(clasesContainer);
     }
+
     
-    private VBox crearOpcionClase(String nombreClase, String rutaImagen, String nombreJugador, int tipoClase, String descripcion) {
+        private VBox crearOpcionClase(String nombreClase, String rutaImagen, String nombreJugador, int tipoClase, String descripcion) {
         VBox container = new VBox(10);
         container.setAlignment(Pos.CENTER);
         container.setStyle("-fx-padding: 15px; -fx-border-color: #e94560; -fx-border-width: 2px; -fx-border-radius: 10px; -fx-background-color: #16213e;");
         
-        // Imagen de la clase
         ImageView imagenClase = new ImageView();
         imagenClase.setFitWidth(180);
         imagenClase.setFitHeight(180);
@@ -276,11 +341,9 @@ public class MainController {
             imagenClase.setImage(image);
         } catch (Exception e) {
             System.out.println("No se pudo cargar la imagen: " + rutaImagen);
-            // Crear un placeholder si la imagen no existe
             imagenClase.setStyle("-fx-background-color: #0f3460; -fx-min-width: 180; -fx-min-height: 180;");
         }
         
-        // Botón de selección
         Button boton = new Button(nombreClase);
         boton.setStyle("-fx-background-color: #e94560; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10px 15px; -fx-min-width: 180px; -fx-cursor: hand;");
         boton.setOnAction(e -> {
@@ -298,7 +361,6 @@ public class MainController {
             container.setStyle("-fx-padding: 15px; -fx-border-color: #e94560; -fx-border-width: 2px; -fx-border-radius: 10px; -fx-background-color: #16213e;");
         });
         
-        // Descripción
         Label descLabel = new Label(descripcion);
         descLabel.setStyle("-fx-text-fill: #ffffff; -fx-font-size: 12px; -fx-text-alignment: center; -fx-wrap-text: true;");
         descLabel.setMaxWidth(180);
@@ -318,5 +380,74 @@ public class MainController {
         }
         
         statusLabel.setText("Estado: " + gameGUI.getEstadoActual().toString());
+    }
+    
+
+    private void actualizarPlayerStatsContainer() {
+        if (playerStatsContainer != null && gameGUI.getJugador() != null) {
+            playerStatsContainer.getChildren().clear();
+            
+            VBox statsBox = new VBox(8);
+            statsBox.setAlignment(Pos.TOP_CENTER);
+            statsBox.setStyle("-fx-padding: 15px;");
+            
+            Label titulo = new Label("Tus Estadísticas");
+            titulo.setStyle("-fx-text-fill: #e94560; -fx-font-weight: bold; -fx-font-size: 16px;");
+            
+            // Avatar del jugador - más grande para el panel de stats
+            ImageView statsAvatar = new ImageView();
+            statsAvatar.setFitWidth(300);
+            statsAvatar.setFitHeight(300);
+            statsAvatar.setPreserveRatio(true);
+            
+            String rutaAvatar = obtenerRutaAvatarJugador();
+            cargarImagen(rutaAvatar, statsAvatar);
+            statsAvatar.setStyle("-fx-border-color: #e94560; -fx-border-width: 2px; -fx-border-radius: 5px;");
+            
+            VBox avatarBox = new VBox(5);
+            avatarBox.setAlignment(Pos.CENTER);
+            avatarBox.getChildren().add(statsAvatar);
+            
+            // Estadísticas
+            VBox statsInfo = new VBox(3);
+            statsInfo.setAlignment(Pos.CENTER_LEFT);
+            
+            Label nombre = new Label("Nombre: " + gameGUI.getJugador().getNombre());
+            nombre.setStyle("-fx-text-fill: white; -fx-font-size: 15px;");
+            
+            Label clase = new Label("Clase: " + gameGUI.getJugador().getClass().getSimpleName().replace("Eco", "Eco "));
+            clase.setStyle("-fx-text-fill: white; -fx-font-size: 15px;");
+            
+            Label nivel = new Label("Nivel: " + gameGUI.getJugador().getNivel());
+            nivel.setStyle("-fx-text-fill: white; -fx-font-size: 15px;");
+            
+            Label hp = new Label("HP: " + gameGUI.getJugador().getVida());
+            hp.setStyle("-fx-text-fill: white; -fx-font-size: 15px;");
+            
+            Label fuerza = new Label("Fuerza: " + gameGUI.getJugador().getFuerza());
+            fuerza.setStyle("-fx-text-fill: white; -fx-font-size: 15px;");
+            
+            Label destreza = new Label("Destreza: " + gameGUI.getJugador().getDestreza());
+            destreza.setStyle("-fx-text-fill: white; -fx-font-size: 15px;");
+            
+            Label inteligencia = new Label("Inteligencia: " + gameGUI.getJugador().getInteligencia());
+            inteligencia.setStyle("-fx-text-fill: white; -fx-font-size: 15px;");
+            
+            statsInfo.getChildren().addAll(nombre, clase, nivel, hp, fuerza, destreza, inteligencia);
+            statsBox.getChildren().addAll(titulo, avatarBox, statsInfo);
+            playerStatsContainer.getChildren().add(statsBox);
+        } else if (playerStatsContainer != null) {
+            // Mensaje cuando no hay jugador
+            playerStatsContainer.getChildren().clear();
+            Label titulo = new Label("Crea tu personaje");
+            titulo.setStyle("-fx-text-fill: #e94560; -fx-font-weight: bold; -fx-font-size: 16px;");
+            
+            Label instruccion = new Label("Selecciona 'Nueva Partida' para comenzar");
+            instruccion.setStyle("-fx-text-fill: white; -fx-font-size: 12px; -fx-wrap-text: true;");
+            instruccion.setMaxWidth(200);
+            instruccion.setAlignment(Pos.CENTER);
+            
+            playerStatsContainer.getChildren().addAll(titulo, instruccion);
+        }
     }
 }

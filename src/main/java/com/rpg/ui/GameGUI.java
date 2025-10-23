@@ -9,6 +9,7 @@ import com.rpg.world.Zona;
 import com.rpg.guardar.SaveManager;
 import com.rpg.misiones.MisionManager;
 import com.rpg.capitulo2.Capitulo2;
+import com.rpg.items.Item;
 
 public class GameGUI {
     private Jugador jugador;
@@ -133,8 +134,52 @@ public class GameGUI {
         
         enemigoActual.recibirDaño(danioBase);
         
+        return procesarResultadoBatalla(resultado);
+    }
+    
+    // NUEVO MÉTODO: Ataque especial
+    public String usarHabilidadEspecial() {
+        if (enemigoActual == null || !enemigoActual.estaVivo()) {
+            return "No hay enemigo para atacar.";
+        }
+        
+        StringBuilder resultado = new StringBuilder();
+        
+        // Usar habilidad especial basada en la clase del jugador
+        if (jugador instanceof EcoGuerrero guerrero) {
+            resultado.append("💥 ").append(jugador.getNombre()).append(" usa GOLPE FEROZ sobre ")
+                    .append(enemigoActual.getNombre()).append("!\n");
+            guerrero.golpeFeroz(enemigoActual);
+        } else if (jugador instanceof EcoPicaro picaro) {
+            resultado.append("🎭 ").append(jugador.getNombre()).append(" usa ATAQUE SORPRESA sobre ")
+                    .append(enemigoActual.getNombre()).append("!\n");
+            picaro.ataqueSorpresa(enemigoActual);
+        } else if (jugador instanceof EcoSabio sabio) {
+            resultado.append("🔮 ").append(jugador.getNombre()).append(" usa MANIPULAR RECUERDO sobre ")
+                    .append(enemigoActual.getNombre()).append("!\n");
+            sabio.manipularRecuerdo(enemigoActual);
+        } else {
+            resultado.append("❌ No tienes habilidades especiales disponibles.\n");
+        }
+        
+        return procesarResultadoBatalla(resultado);
+    }
+    
+    private String procesarResultadoBatalla(StringBuilder resultado) {
         if (!enemigoActual.estaVivo()) {
             resultado.append("\n💀 Has derrotado al ").append(enemigoActual.getNombre()).append("!\n");
+            
+            // Dar experiencia al jugador
+            jugador.ganarExperiencia(enemigoActual.getExperienciaBase());
+            resultado.append("✨ Has ganado ").append(enemigoActual.getExperienciaBase()).append(" de experiencia!\n");
+            
+            // Posible botín
+            Zona zona = new Zona("temporal");
+            Item botin = zona.posibleBotin();
+            if (botin != null) {
+                jugador.recogerItem(botin);
+                resultado.append("🎁 Has obtenido: ").append(botin.getNombre()).append("\n");
+            }
             
             if (enemigoActual instanceof EspectroJefe) {
                 resultado.append("\n💫 Has derrotado al Espectro Jefe.\n");
@@ -151,7 +196,8 @@ public class GameGUI {
             enemigoActual.atacar(jugador);
             resultado.append("🛡️ El ").append(enemigoActual.getNombre())
                     .append(" te ataca y te inflige ").append(enemigoActual.getAtaque()).append(" de daño!\n")
-                    .append("Tu HP restante: ").append(jugador.getVida());
+                    .append("Tu HP restante: ").append(jugador.getVida()).append("\n")
+                    .append("HP del ").append(enemigoActual.getNombre()).append(": ").append(enemigoActual.getVida());
             
             if (!jugador.estaVivo()) {
                 resultado.append("\n\n💀 Tu eco se desvanece en la eternidad...");
